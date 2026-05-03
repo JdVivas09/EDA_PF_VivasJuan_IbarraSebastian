@@ -26,6 +26,5 @@ vector<Arista> ParsearArchivo (const string& ruta){
             a.push_back({u, v});
         }
     }
-    archivo.close();
     return a;
 }
