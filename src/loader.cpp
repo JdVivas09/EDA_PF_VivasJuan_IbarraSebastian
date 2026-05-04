@@ -5,10 +5,7 @@
 #include <string>
 using namespace std;
 
-struct Arista {
-    int u;
-    int v;
-};
+#include "graph.hpp"
 
 vector<Arista> ParsearArchivo (const string& ruta){
     ifstream archivo(ruta);
