@@ -1,0 +1,17 @@
+ANALISIS ESTRUCTURAL
+
+====================
+
+Numeros de nodos:
+
+Nummero de aristas:
+
+Nodos en la componente  conexa principal:
+
+Diametro Aproximado:
+
+Nodo de mayor grado:
+
+Grado promedio:
+
+Numero de componentes conexas:
