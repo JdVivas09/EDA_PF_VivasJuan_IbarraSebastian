@@ -38,3 +38,32 @@ vector<int> BFS (GrafoNoPonderado& g, int origen){
     }
     return distancias;
 }
+
+vector<int> BFS_B (GrafoNoPonderado& g, int origen, int destino, int& nE, vector<int>& prev){
+    vector<int> d(g.n, -1);
+    vector<bool> v(g.n, false);
+    prev.assign(g.n, -1);
+    Cola c;
+    nE= 0; // contador de nodos explorados
+    c.encolar(origen);
+    v[origen]= true;
+    d[origen]= 0;
+
+    while(!c.vacia()){
+        int w= c.vaciar();
+        nE++;
+        if(w == destino){
+            break;
+        }
+        for(int i= 0; i < g.lda[w].size(); i++){
+            int z= g.lda[w][i];
+            if(!v[z]){
+                v[z]= true;
+                d[z]= d[w] + 1;
+                prev[z]= w;
+                c.encolar(z);
+            }
+        }
+    }
+    return d;
+}
