@@ -6,7 +6,7 @@ using namespace std;
 
 vector<Arista> ParsearArchivo(const string& archivo);
 
-void runStructuralAnalysis(const GrafoNoPonderado& graph);
+void runStructuralAnalysis(GrafoNoPonderado& graph);
     
 int main() {
 
@@ -16,7 +16,7 @@ int main() {
     
     cout << "Archivo cargado correctamente." << endl;  
 
-    GrafoNoPonderado graph(aristas);
+    GrafoNoPonderado graph = GNP(aristas);
 
     cout << "Grafo cargado correctamente." << endl;
 

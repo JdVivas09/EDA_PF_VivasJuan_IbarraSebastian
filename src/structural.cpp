@@ -29,7 +29,7 @@ void Estadisticas(GrafoNoPonderado& g, int& numN, int& numA, int& compConP, doub
         }
     }
 
-    vector<bool> visitado(g.n, false);
+   vector<bool> visitado(g.n, false);
     for(int k= 0; k < g.lda.size(); k++){
         if(!visitado[k]){
             vector<int> d= BFS(g, k);
@@ -45,5 +45,27 @@ void Estadisticas(GrafoNoPonderado& g, int& numN, int& numA, int& compConP, doub
                 compConP= t;
             }
         }
-    }
+    } 
+    
+}
+
+void runStructuralAnalysis(GrafoNoPonderado& graph){
+    int numN, numA, compConP, mayorGrado, diametroAprox, numeroCompcon;
+    double prom;
+
+    Estadisticas(graph, numN, numA, compConP, prom, mayorGrado, diametroAprox, numeroCompcon);
+
+    ofstream archivo("results/analisis_estructural.txt");
+    
+    archivo << "Anailisis estructural del grafo" << endl;
+    archivo << "Numero de nodos: " << numN << endl;
+    archivo << "Numero de aristas: " << numA << endl;
+    archivo << "Promedio de grado: " << prom << endl;
+    archivo << "Grado mayor: " << mayorGrado << endl;
+    archivo << "Diametro aproximado: " << diametroAprox << endl;
+    archivo << "Numero de componentes conexas: " << numeroCompcon << endl;
+    archivo.close();
+
+    cout << "Resultados del analisis estructural:" << endl;
+
 }
