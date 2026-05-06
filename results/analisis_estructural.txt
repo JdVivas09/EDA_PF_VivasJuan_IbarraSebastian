@@ -1,17 +1,8 @@
-ANALISIS ESTRUCTURAL
-
-====================
-
-Numeros de nodos:
-
-Nummero de aristas:
-
-Nodos en la componente  conexa principal:
-
-Diametro Aproximado:
-
-Nodo de mayor grado:
-
-Grado promedio:
-
-Numero de componentes conexas:
+Anailisis estructural del grafo
+Numero de nodos: 1090920
+Numero de aristas: 3083796
+Promedio de grado: 5
+Grado mayor: 674502
+Diametro aproximado: 592
+Numero de componentes conexas: 3034
+Numero de nodos en la componente conexa principal: 1087562

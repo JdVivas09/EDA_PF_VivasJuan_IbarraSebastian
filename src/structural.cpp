@@ -1,4 +1,5 @@
 #include <fstream>
+#include <iostream>
 #include <vector>
 using namespace std;
 
@@ -64,6 +65,7 @@ void runStructuralAnalysis(GrafoNoPonderado& graph){
     archivo << "Grado mayor: " << mayorGrado << endl;
     archivo << "Diametro aproximado: " << diametroAprox << endl;
     archivo << "Numero de componentes conexas: " << numeroCompcon << endl;
+    archivo << "Numero de nodos en la componente conexa principal: " << compConP << endl;
     archivo.close();
 
     cout << "Resultados del analisis estructural:" << endl;
