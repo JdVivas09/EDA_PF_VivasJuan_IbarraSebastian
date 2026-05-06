@@ -1,6 +1,7 @@
 #include <vector>
 #include <string>
 #include <cstdlib>
+#pragma once
 using namespace std;
 
 struct Arista {
