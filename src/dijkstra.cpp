@@ -37,3 +37,15 @@ vector<int> Dijkstra(GrafoPonderado& g, int origen, int destino, int& nE, vector
     }
     return dist;
 }
+
+vector<int> reconstruirCamino(int origen, int destino, vector<int>& prev){
+    vector<int> c;
+    for(int actual= destino; actual != -1; actual= prev[actual]){
+        c.push_back(actual);
+    }
+    reverse(c.begin(), c.end());
+    if(c.empty() || c[0] != origen){
+        c.clear();
+    }
+    return c;
+}
