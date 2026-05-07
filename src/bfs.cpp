@@ -45,6 +45,10 @@ vector<int> BFS_B (GrafoNoPonderado& g, int origen, int destino, int& nE, vector
     prev.assign(g.n, -1);
     Cola c;
     nE= 0; // contador de nodos explorados
+
+    if (origen < 0 || origen >= g.n || destino < 0 || destino >= g.n) {
+        return d;
+    }
     c.encolar(origen);
     v[origen]= true;
     d[origen]= 0;
