@@ -47,7 +47,7 @@ vector<int> BFS_B (GrafoNoPonderado& g, int origen, int destino, int& nE, vector
     nE= 0; // contador de nodos explorados
 
     if (origen < 0 || origen >= g.n || destino < 0 || destino >= g.n) {
-        return d;
+        return d; //en caso de no recibir ningún nodo
     }
     c.encolar(origen);
     v[origen]= true;
@@ -64,10 +64,10 @@ vector<int> BFS_B (GrafoNoPonderado& g, int origen, int destino, int& nE, vector
             if(!v[z]){
                 v[z]= true;
                 d[z]= d[w] + 1;
-                prev[z]= w;
+                prev[z]= w; //asigna al vector prev el anterior nodo
                 c.encolar(z);
             }
         }
     }
-    return d;
+    return d; //numero de saltos
 }
