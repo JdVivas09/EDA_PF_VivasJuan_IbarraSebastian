@@ -10,7 +10,7 @@ vector<Arista> ParsearArchivo(const string& archivo);
 void runStructuralAnalysis(GrafoNoPonderado& graph);
 
 void runModuloB(GrafoNoPonderado& graphNP, GrafoPonderado& graphP);
-
+void runModuloC(GrafoNoPonderado& graphNP, GrafoPonderado& graphP);
 
 int main(int argc, char* argv[]) {
 
@@ -44,9 +44,19 @@ int main(int argc, char* argv[]) {
 
         runModuloB(graphNP, graphP);
 
+    } else if (modulo == "C" || modulo == "c") {
+
+        cout << "Ejecutando modulo C: Subgrafo, MST y DAG" << endl;
+
+        GrafoNoPonderado graphNP = GNP(aristas);
+
+        GrafoPonderado graphP = GP(aristas);
+
+        runModuloC(graphNP, graphP);
+
     } else {
 
-        cout << "Modulo no reconocido. Por favor ingrese 'A' o 'B'." << endl;
+        cout << "Modulo no reconocido. Por favor ingrese 'A', 'B' o 'C'." << endl;
     }
 
     return 0;

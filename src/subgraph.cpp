@@ -1,8 +1,14 @@
+#include <iostream>
+#include <fstream>
+#include <map>
 #include <vector>
-#include <algorithm>
+#include <string>
+#include "algorithm"
 using namespace std;
 
 #include "graph.hpp"
+vector<int> Dijkstra(GrafoPonderado& g, int origen, int destino, int& nodos, vector<int>& prev);
+vector<int> reconstruirCamino(int origen, int destino, vector<int>& prev);
 
 struct Subgrafo {
     vector<int> n; 
@@ -121,4 +127,98 @@ bool DAG(Subgrafo& s){
         }
     }
     return true;
+}
+
+void exportarSubgrafo(Subgrafo& s, const string& archivo) {
+    ofstream f(archivo);
+    if (!f.is_open()) {
+        cout << "Error al abrir " << archivo << endl;
+        return;
+    }
+
+    f << "Subgrafo inducido por Q01 y Q06" << endl;
+    f << "Nodos: " << s.n.size() << endl;
+    f << "Aristas: " << s.a.size() << endl << endl;
+
+    f << "Nodos:" << endl;
+    for (int i = 0; i < (int)s.n.size(); i++)
+        f << s.n[i] << endl;
+
+    f << endl << "Aristas:" << endl;
+    for (int i = 0; i < (int)s.a.size(); i++)
+        f << s.a[i].first << " " << s.a[i].second << endl;
+
+    f.close();
+}
+
+int buscarPeso(GrafoPonderado& g, int u, int v) {
+    for (int i = 0; i < (int)g.lda[u].size(); i++) {
+        if (g.lda[u][i].v == v)
+            return g.lda[u][i].p;
+    }
+    return 1;
+}
+
+vector<pair<int, pair<int, int>>> prepararAristas(Subgrafo& s, GrafoPonderado& g) {
+    vector<pair<int, pair<int, int>>> aristas;
+    map<int, int> idx;
+
+    for (int i = 0; i < (int)s.n.size(); i++)
+        idx[s.n[i]] = i;
+
+    for (int i = 0; i < (int)s.a.size(); i++) {
+        int u = s.a[i].first;
+        int v = s.a[i].second;
+        int p = buscarPeso(g, u, v);
+        aristas.push_back({p, {idx[u], idx[v]}});
+    }
+
+    return aristas;
+}
+
+void guardarAnalisis(Subgrafo& s, int pesoMST, bool esDAG, const string& archivo) {
+    ofstream f(archivo);
+    if (!f.is_open()) {
+        cout << "Error al abrir " << archivo << endl;
+        return;
+    }
+
+    f << "Analisis del subgrafo (Q01 y Q06)" << endl << endl;
+    f << "Nodos: " << s.n.size() << endl;
+    f << "Aristas: " << s.a.size() << endl;
+    f << "Peso MST: " << pesoMST << endl;
+    f << "Es DAG: " << (esDAG ? "Si" : "No") << endl;
+
+    f.close();
+}
+
+void runModuloC(GrafoNoPonderado& graphNP, GrafoPonderado& graphP) {
+    cout << "Modulo C: subgrafo, MST y DAG" << endl;
+
+    int nodos = 0;
+    vector<int> prevQ01, prevQ06;
+
+    vector<int> distQ01 = Dijkstra(graphP, 1, 500000, nodos, prevQ01);
+    vector<int> caminoQ01 = reconstruirCamino(1, 500000, prevQ01);
+
+    nodos = 0;
+    vector<int> distQ06 = Dijkstra(graphP, 1, 1087562, nodos, prevQ06);
+    vector<int> caminoQ06 = reconstruirCamino(1, 1087562, prevQ06);
+
+    if (caminoQ01.empty() || caminoQ06.empty()) {
+        cout << "No se pudo reconstruir alguno de los caminos." << endl;
+        return;
+    }
+
+    Subgrafo s = subgrafoInd(caminoQ01, caminoQ06, graphNP);
+
+    vector<pair<int, pair<int, int>>> aristas = prepararAristas(s, graphP);
+    int pesoMST = Kruskal(s.n.size(), aristas);
+    bool esDAG = DAG(s);
+
+    exportarSubgrafo(s, "results/subgrafo_caminos.txt");
+    guardarAnalisis(s, pesoMST, esDAG, "results/analisis_subgrafo.txt");
+
+    cout << "Modulo C finalizado." << endl;
+    cout << "Archivos: results/subgrafo_caminos.txt, results/analisis_subgrafo.txt" << endl;
 }

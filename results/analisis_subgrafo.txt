@@ -1,0 +1,6 @@
+Analisis del subgrafo (Q01 y Q06)
+
+Nodos: 221
+Aristas: 448
+Peso MST: 1038
+Es DAG: Si
