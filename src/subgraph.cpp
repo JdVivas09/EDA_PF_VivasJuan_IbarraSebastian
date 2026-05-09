@@ -1,4 +1,5 @@
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 #include "graph.hpp"
@@ -47,4 +48,38 @@ Subgrafo subgrafoInd (vector<int>& c1, vector<int>& c2, GrafoNoPonderado& g){
         }
     }
     return s;
+}
+
+int find(vector<int>& padre, int i){
+    if(padre[i] != i){
+        padre[i]= find(padre, padre[i]);
+    }
+    return padre[i];
+}
+
+void unite(vector<int>& padre, int x, int y){
+    padre[find(padre, x)]= find(padre, y);
+}
+
+int Kruskal(int v, vector<pair<int, pair<int, int>>>& a){ // donde a son las aristas
+    sort(a.begin(), a.end());
+    vector<int> padre(v);
+    for(int i= 0; i < v; i++){
+        padre[i]= i;
+    }
+    int pesoT= 0;
+    int cont= 0;
+    for(auto& e:a){
+        int w= e.first;
+        int u= e.second.first;
+        int z= e.second.second; //porque la arista es {peso, {u, z}}
+        if(find(padre, u) != find(padre, z)){ //ambos nodos deben estar en subgrafos diferentes, sino al agregar la arista se forma un ciclo
+            unite(padre, u, z);
+            pesoT += w;
+            if(++cont == v-1){ //porque el numero de aristas es v-1 si tiene v nodos
+                break;
+            }
+        }
+    }
+    return pesoT;
 }
