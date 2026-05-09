@@ -1,7 +1,7 @@
 Anailisis estructural del grafo
 Numero de nodos: 1090920
-Numero de aristas: 3083796
-Promedio de grado: 5
+Numero de aristas: 1541898
+Promedio de grado: 2.82678
 Grado mayor: 674502
 Diametro aproximado: 592
 Numero de componentes conexas: 3034

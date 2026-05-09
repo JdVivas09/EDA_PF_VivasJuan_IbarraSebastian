@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include "graph.hpp"
-
+#include "chrono"
 using namespace std;
 
 vector<Arista> ParsearArchivo(const string& archivo);

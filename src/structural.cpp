@@ -4,7 +4,8 @@
 using namespace std;
 
 #include "graph.hpp"
-#include "bfs.cpp"
+
+vector<int> BFS (GrafoNoPonderado& g, int origen);
 
 void Estadisticas(GrafoNoPonderado& g, int& numN, int& numA, int& compConP, double& prom, int& mayorGrado, int& diametroAprox, int& numCompCon){
     numN= g.n;
@@ -60,8 +61,8 @@ void runStructuralAnalysis(GrafoNoPonderado& graph){
     
     archivo << "Anailisis estructural del grafo" << endl;
     archivo << "Numero de nodos: " << numN << endl;
-    archivo << "Numero de aristas: " << numA << endl;
-    archivo << "Promedio de grado: " << prom << endl;
+    archivo << "Numero de aristas: " << numA / 2 << endl;
+    archivo << "Promedio de grado: " << (double)numA / numN << endl;
     archivo << "Grado mayor: " << mayorGrado << endl;
     archivo << "Diametro aproximado: " << diametroAprox << endl;
     archivo << "Numero de componentes conexas: " << numeroCompcon << endl;
