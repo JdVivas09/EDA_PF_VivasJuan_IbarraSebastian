@@ -1,5 +1,4 @@
 #include <vector>
-#include <string>
 #include <cstdlib>
 #pragma once
 using namespace std;
@@ -27,7 +26,7 @@ struct GrafoPonderado{
     vector<vector<PesoNodo>> lda;
 };
 
-inline GrafoNoPonderado GNP(vector<Arista>& a){
+GrafoNoPonderado GNP(vector<Arista>& a){
     GrafoNoPonderado g;
     g.a= a.size();
     for(int i= 0; i < a.size(); i++){
@@ -42,9 +41,9 @@ inline GrafoNoPonderado GNP(vector<Arista>& a){
     }
     g.n= g.lda.size();
     return g;
-};
+}
 
-inline GrafoPonderado GP(vector<Arista>& a){
+GrafoPonderado GP(vector<Arista>& a){
     GrafoPonderado g;
     g.a= a.size();
     srand(42);
@@ -61,4 +60,4 @@ inline GrafoPonderado GP(vector<Arista>& a){
     }
     g.n= g.lda.size();
     return g;
-};
+}
