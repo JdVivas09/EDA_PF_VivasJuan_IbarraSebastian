@@ -83,3 +83,42 @@ int Kruskal(int v, vector<pair<int, pair<int, int>>>& a){ // donde a son las ari
     }
     return pesoT;
 }
+
+bool DFS(Subgrafo& s, int u, vector<bool>& visitado, vector<bool>& enPila){
+    visitado[u]= true;
+    enPila[u]= true;
+    for(int i= 0; i < s.a.size(); i++){
+        if(s.a[i].first == u){
+            int z= s.a[i].second;
+            if(!visitado[z]){
+                if(DFS(s, z, visitado, enPila)){
+                    return true;
+                }
+            } else if(enPila[z]){
+                return true;
+            }
+        }
+    }
+    enPila[u]= false;
+    return false;
+}
+
+bool DAG(Subgrafo& s){
+    int maxId= 0;
+    for(int i= 0; i < s.n.size(); i++){
+        if(s.n[i] > maxId){
+            maxId= s.n[i];
+        }
+    }
+    vector<bool> visitado(maxId + 1, false);
+    vector<bool> enPila(maxId + 1, false);
+    for(int i= 0; i < s.n.size(); i++){
+        int u= s.n[i];
+        if(!visitado[u]){
+            if(DFS(s, u, visitado, enPila)){
+                return false;
+            }
+        }
+    }
+    return true;
+}
